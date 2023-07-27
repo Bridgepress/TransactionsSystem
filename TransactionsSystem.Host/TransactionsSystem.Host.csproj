@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Serilog" Version="3.0.2-dev-02044" />
+    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+    <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="6.3.0-dev-00049" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TransactionsSystem.Api\TransactionsSystem.Api.csproj" />
+    <ProjectReference Include="..\TransactionsSystem.Core\TransactionsSystem.Core.csproj" />
+    <ProjectReference Include="..\TransactionsSystem.DataAccess\TransactionsSystem.DataAccess.csproj" />
+    <ProjectReference Include="..\TransactionsSystem.Domain\TransactionsSystem.Domain.csproj" />
+    <ProjectReference Include="..\TransactionsSystem.Handlers\TransactionsSystem.Handlers.csproj" />
+    <ProjectReference Include="..\TransactionsSystem.Repositories.Implementantion\TransactionsSystem.Repositories.Implementantion.csproj" />
+  </ItemGroup>
+
+</Project>

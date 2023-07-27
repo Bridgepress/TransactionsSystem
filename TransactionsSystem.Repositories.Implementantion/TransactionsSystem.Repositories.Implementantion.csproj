@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TransactionsSystem.Core\TransactionsSystem.Core.csproj" />
+    <ProjectReference Include="..\TransactionsSystem.DataAccess\TransactionsSystem.DataAccess.csproj" />
+    <ProjectReference Include="..\TransactionsSystem.Repositories.Contracts\TransactionsSystem.Repositories.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
