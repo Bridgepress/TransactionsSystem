@@ -44,7 +44,7 @@ namespace TransactionsSystem.Handlers.Handlers.TransactionsHandlers
                 {
                     TransactionId = c.TransactionId,
                     ClientName = c.ClientName,
-                    Amount = c.Amount,
+                    Amount = c.Amount.ToString(),
                     Type = c.Type,
                     Status = c.Status,
                 })

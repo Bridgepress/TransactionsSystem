@@ -1,5 +1,7 @@
-﻿using MediatR;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using TransactionsSystem.Core.Exceptions.BadRequest400;
 using TransactionsSystem.Domain.Commands.Transactions;
 using TransactionsSystem.Domain.Dto;
@@ -31,7 +33,7 @@ namespace TransactionsSystem.Handlers.Handlers.TransactionsHandlers
 
             foreach (var item in getTransactions)
             {
-                var existingTransaction = await _repositoryManager.TransactionRepository.GetAll()
+                var existingTransaction =  await _repositoryManager.TransactionRepository.GetAll()
                     .FirstOrDefaultAsync(x => x.TransactionId == item.TransactionId);
 
                 if (existingTransaction == null)
@@ -42,7 +44,7 @@ namespace TransactionsSystem.Handlers.Handlers.TransactionsHandlers
                         ClientName = item.ClientName,
                         Status = item.Status,
                         Type = item.Type,
-                        Amount = item.Amount,
+                        Amount = ParseDecimal(item.Amount),
                         TransactionId = item.TransactionId,
                     });
                 }
@@ -51,12 +53,25 @@ namespace TransactionsSystem.Handlers.Handlers.TransactionsHandlers
                     existingTransaction.ClientName = item.ClientName;
                     existingTransaction.Status = item.Status;
                     existingTransaction.Type = item.Type;
-                    existingTransaction.Amount = item.Amount;
+                    existingTransaction.Amount = ParseDecimal(item.Amount);
                 }
             }
 
             _repositoryManager.TransactionRepository.AddRange(newTransactions);
             await _repositoryManager.SaveChangesAsync();
+        }
+
+        private decimal ParseDecimal(string value)
+        {
+            NumberStyles styles = NumberStyles.Currency;
+            CultureInfo culture = CultureInfo.GetCultureInfo("en-US");
+            decimal amount = 0;
+            if (!decimal.TryParse(value, styles, culture, out amount))
+            {
+                throw new InvalidOperationException();
+            }
+
+            return amount;
         }
     }
 }
