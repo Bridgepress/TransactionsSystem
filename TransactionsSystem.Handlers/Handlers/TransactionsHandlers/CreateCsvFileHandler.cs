@@ -27,27 +27,23 @@ namespace TransactionsSystem.Handlers.Handlers.TransactionsHandlers
         public async Task<GetCsvTransactionsResponse> Handle(CreateCsvTransactionsParameters request, CancellationToken cancellationToken)
         {
             var query = _repositoryManager.TransactionRepository.GetAll()
-            .Search(c => c.Name, request.Name);
-            if (!String.IsNullOrEmpty(request.Buyer))
-            {
-                query = query.Where(x => x.Buyer == request.Buyer);
-            }
-            if (request.DateUpdate != null)
-            {
-                query = query.Where(x => x.DateUpdate == request.DateUpdate);
-            }
+            .Search(c => c.ClientName, request.ClientName);
             if (!String.IsNullOrEmpty(request.Status))
             {
                 query = query.Where(x => x.Status == request.Status);
+            }
+            if (!String.IsNullOrEmpty(request.Type))
+            {
+                query = query.Where(x => x.Type == request.Type);
             }
             var transactions = await query
                 .Select(c => new Transaction
                 {
                     TransactionId = c.TransactionId,
-                    Buyer = c.Buyer,
-                    DateUpdate = c.DateUpdate,
+                    ClientName  = c.ClientName,
+                    Type = c.Type,
                     Status = c.Status,
-                    Name = c.Name,
+                    Amount = c.Amount,
                 }).ToListAsync(cancellationToken);
             byte[] data =_csvExtensions.Create(transactions);
 

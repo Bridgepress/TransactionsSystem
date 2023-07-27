@@ -144,14 +144,10 @@ namespace TransactionsSystem.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Buyer")
-                        .IsRequired()
+                    b.Property<string>("Amount")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DateUpdate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("ClientName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -160,6 +156,10 @@ namespace TransactionsSystem.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TransactionId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

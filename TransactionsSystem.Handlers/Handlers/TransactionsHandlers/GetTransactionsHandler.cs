@@ -1,10 +1,10 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
+using TransactionsSystem.Core.Extensions;
 using TransactionsSystem.Domain.Requests.Transactions;
 using TransactionsSystem.Domain.Responses;
 using TransactionsSystem.Domain.Responses.Transactions;
 using TransactionsSystem.Repositories.Contracts;
-using TransactionsSystem.Core.Extensions;
-using Microsoft.EntityFrameworkCore;
 
 namespace TransactionsSystem.Handlers.Handlers.TransactionsHandlers
 {
@@ -22,18 +22,14 @@ namespace TransactionsSystem.Handlers.Handlers.TransactionsHandlers
             CancellationToken cancellationToken)
         {
             var query = _repositoryManager.TransactionRepository.GetAll()
-             .Search(c => c.Name, request.Name);
-            if (!String.IsNullOrEmpty(request.Buyer))
-            {
-                query = query.Where(x => x.Buyer == request.Buyer);
-            }
-            if (request.DateUpdate != null)
-            {
-                query = query.Where(x => x.DateUpdate == request.DateUpdate);
-            }
+                .Search(c => c.ClientName, request.ClientName);
             if (!String.IsNullOrEmpty(request.Status))
             {
                 query = query.Where(x => x.Status == request.Status);
+            }
+            if (!String.IsNullOrEmpty(request.Type))
+            {
+                query = query.Where(x => x.Type == request.Type);
             }
             var count = await query.CountAsync(cancellationToken);
             if (count == 0 || count < request.PageNumber * request.PageSize)
@@ -46,11 +42,11 @@ namespace TransactionsSystem.Handlers.Handlers.TransactionsHandlers
                 .Take(request.PageSize)
                 .Select(c => new TransactionResponse
                 {
-                   TransactionId = c.TransactionId,
-                   Buyer = c.Buyer,
-                   DateUpdate = c.DateUpdate,
-                   Status = c.Status,
-                   Name = c.Name,
+                    TransactionId = c.TransactionId,
+                    ClientName = c.ClientName,
+                    Amount = c.Amount,
+                    Type = c.Type,
+                    Status = c.Status,
                 })
                 .ToListAsync(cancellationToken);
 

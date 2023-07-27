@@ -14,7 +14,7 @@ namespace TransactionsSystem.FileHandlers
             using var stream = new MemoryStream(bytes);
             using var parser = new ExcelParser(stream);
             using var reader = new CsvReader(parser);
-            reader.Configuration.CultureInfo = CultureInfo.GetCultureInfo("en-AU");
+            reader.Configuration.CultureInfo = CultureInfo.GetCultureInfo("en-GB");
             return reader.GetRecords<TransactionDto>().ToList();
         }
     }

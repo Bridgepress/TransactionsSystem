@@ -1,10 +1,5 @@
-﻿using CsvHelper;
-using CsvHelper.Configuration;
-using DocumentFormat.OpenXml.Drawing.Charts;
-using DocumentFormat.OpenXml.Vml.Spreadsheet;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
 using TransactionsSystem.Core.Exceptions.BadRequest400;
 using TransactionsSystem.Domain.Commands.Transactions;
 using TransactionsSystem.Domain.Dto;
@@ -44,19 +39,19 @@ namespace TransactionsSystem.Handlers.Handlers.TransactionsHandlers
                     newTransactions.Add(new Transaction()
                     {
                         Id = Guid.NewGuid(),
-                        Buyer = item.Buyer,
+                        ClientName = item.ClientName,
                         Status = item.Status,
-                        DateUpdate = item.DateUpdate,
-                        Name = item.Name,
+                        Type = item.Type,
+                        Amount = item.Amount,
                         TransactionId = item.TransactionId,
                     });
                 }
                 else
                 {
-                    existingTransaction.Buyer = item.Buyer;
+                    existingTransaction.ClientName = item.ClientName;
                     existingTransaction.Status = item.Status;
-                    existingTransaction.DateUpdate = item.DateUpdate;
-                    existingTransaction.Name = item.Name;
+                    existingTransaction.Type = item.Type;
+                    existingTransaction.Amount = item.Amount;
                 }
             }
 
