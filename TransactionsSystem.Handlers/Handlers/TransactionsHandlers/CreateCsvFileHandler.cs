@@ -1,13 +1,11 @@
 ﻿using MediatR;
-using TransactionsSystem.Domain.Requests.Transactions;
-using TransactionsSystem.Domain.Responses;
-using TransactionsSystem.Domain.Responses.Transactions;
-using TransactionsSystem.FileHandlers;
-using TransactionsSystem.Repositories.Contracts;
-using TransactionsSystem.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
+using TransactionsSystem.Core.Extensions;
 using TransactionsSystem.Domain.Entities;
-using AutoMapper;
+using TransactionsSystem.Domain.Requests.Transactions;
+using TransactionsSystem.Domain.Responses.Transactions;
+using TransactionsSystem.FileHandlers.Interfaces;
+using TransactionsSystem.Repositories.Contracts;
 
 namespace TransactionsSystem.Handlers.Handlers.TransactionsHandlers
 {
@@ -15,13 +13,11 @@ namespace TransactionsSystem.Handlers.Handlers.TransactionsHandlers
     {
         private readonly IRepositoryManager _repositoryManager;
         private readonly ICsvExtensions _csvExtensions;
-        private readonly IMapper _mapper;
 
-        public CreateCsvFileHandler(IRepositoryManager repositoryManager, ICsvExtensions csvExtensions, IMapper mapper)
+        public CreateCsvFileHandler(IRepositoryManager repositoryManager, ICsvExtensions csvExtensions)
         {
             _repositoryManager = repositoryManager;
-            _csvExtensions = csvExtensions; 
-            _mapper = mapper;
+            _csvExtensions = csvExtensions;
         }
 
         public async Task<GetCsvTransactionsResponse> Handle(CreateCsvTransactionsParameters request, CancellationToken cancellationToken)
@@ -40,12 +36,12 @@ namespace TransactionsSystem.Handlers.Handlers.TransactionsHandlers
                 .Select(c => new Transaction
                 {
                     TransactionId = c.TransactionId,
-                    ClientName  = c.ClientName,
+                    ClientName = c.ClientName,
                     Type = c.Type,
                     Status = c.Status,
                     Amount = c.Amount,
                 }).ToListAsync(cancellationToken);
-            byte[] data =_csvExtensions.Create(transactions);
+            byte[] data = _csvExtensions.Create(transactions);
 
             return new GetCsvTransactionsResponse() { FileData = data };
         }

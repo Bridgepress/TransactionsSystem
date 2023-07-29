@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TransactionsSystem.Domain;
 using TransactionsSystem.Domain.Commands.Authentication;
 using TransactionsSystem.Domain.Responses.Authentication;
 

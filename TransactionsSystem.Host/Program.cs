@@ -7,6 +7,7 @@ using TransactionsSystem.Api.Filters;
 using TransactionsSystem.Core.Extensions;
 using TransactionsSystem.DataAccess;
 using TransactionsSystem.FileHandlers;
+using TransactionsSystem.FileHandlers.Interfaces;
 using TransactionsSystem.Handlers.Installers;
 using TransactionsSystem.Repositories.Implementantion;
 

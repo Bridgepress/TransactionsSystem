@@ -1,12 +1,11 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using TransactionsSystem.Core.Exceptions.BadRequest400;
 using TransactionsSystem.Domain.Commands.Transactions;
 using TransactionsSystem.Domain.Dto;
 using TransactionsSystem.Domain.Entities;
-using TransactionsSystem.FileHandlers;
+using TransactionsSystem.FileHandlers.Interfaces;
 using TransactionsSystem.Repositories.Contracts;
 
 namespace TransactionsSystem.Handlers.Handlers.TransactionsHandlers
@@ -33,9 +32,8 @@ namespace TransactionsSystem.Handlers.Handlers.TransactionsHandlers
 
             foreach (var item in getTransactions)
             {
-                var existingTransaction =  await _repositoryManager.TransactionRepository.GetAll()
+                var existingTransaction = await _repositoryManager.TransactionRepository.GetAll()
                     .FirstOrDefaultAsync(x => x.TransactionId == item.TransactionId);
-
                 if (existingTransaction == null)
                 {
                     newTransactions.Add(new Transaction()

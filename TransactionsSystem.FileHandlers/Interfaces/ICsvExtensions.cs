@@ -1,6 +1,6 @@
 ﻿using TransactionsSystem.Domain.Entities;
 
-namespace TransactionsSystem.FileHandlers
+namespace TransactionsSystem.FileHandlers.Interfaces
 {
     public interface ICsvExtensions
     {

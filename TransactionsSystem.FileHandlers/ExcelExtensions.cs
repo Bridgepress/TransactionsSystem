@@ -2,7 +2,7 @@
 using CsvHelper.Excel;
 using System.Globalization;
 using TransactionsSystem.Domain.Dto;
-using TransactionsSystem.Domain.Entities;
+using TransactionsSystem.FileHandlers.Interfaces;
 
 namespace TransactionsSystem.FileHandlers
 {

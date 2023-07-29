@@ -1,6 +1,6 @@
 ﻿using TransactionsSystem.Domain.Dto;
 
-namespace TransactionsSystem.FileHandlers
+namespace TransactionsSystem.FileHandlers.Interfaces
 {
     public interface IExcelExtensions
     {

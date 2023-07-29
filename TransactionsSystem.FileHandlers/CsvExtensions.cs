@@ -2,6 +2,7 @@
 using CsvHelper.Configuration;
 using System.Globalization;
 using TransactionsSystem.Domain.Entities;
+using TransactionsSystem.FileHandlers.Interfaces;
 
 namespace TransactionsSystem.FileHandlers
 {
